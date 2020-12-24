@@ -2,25 +2,28 @@
 (function(){
   'use strict'
 
-  let getList = [...JSON.parse(localStorage.baseData)];
+  const getList = [...JSON.parse(localStorage.baseData)];
 
-  let listV = document.querySelectorAll('.vacancy-item');
+  const listV = document.querySelectorAll('.vacancy-item');
   listV.forEach.call(listV, (item) => {
     item.addEventListener("focus", showSelection)
   });
 
+  const head = document.querySelector('.vacancy-detail-selected-head');
+  const place = document.querySelector('.vacancy-detail-selected-place');
+  const text = document.querySelector('.vacancy-detail-text');
+
   showSelection();
   function showSelection( el ) {
     let idFocus = el?.target?.id || 1;
-    let selectedVacancy = getList.filter( (element) => element.id == idFocus );
+    let selectedVacancy = getList.find( (element) => element.id == idFocus );
     
     listV.forEach.call(listV, (item) => {
-      item.classList.remove('active')
+      item.classList.toggle('active', item.id == idFocus)
     });
-    document.getElementById(idFocus).classList.toggle('active');
 
-    document.querySelector('.vacancy-detail-selected-head').innerHTML = selectedVacancy[0].vacancyName;
-    document.querySelector('.vacancy-detail-selected-place').innerHTML = selectedVacancy[0].place;
-    document.querySelector('.vacancy-detail-text').innerHTML = selectedVacancy[0].text;
+    head.innerHTML = selectedVacancy.vacancyName;
+    place.innerHTML = selectedVacancy.place;
+    text.innerHTML = selectedVacancy.text;
   }
 })() 
