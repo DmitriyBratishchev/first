@@ -12,18 +12,15 @@
   const head = document.querySelector('.vacancy-detail-selected-head');
   const place = document.querySelector('.vacancy-detail-selected-place');
   const text = document.querySelector('.vacancy-detail-text');
-  const idFirst = document.querySelector('.vacancy-item').id;
+  const idFirst = document.querySelector('.vacancy-item').getAttribute('data-vacancy-id');
 
   showSelection();
   function showSelection( el ) {
-    console.log(el);
-    let idFocus = el?.target?.id || idFirst;
+    let idFocus = el?.target?.getAttribute('data-vacancy-id') || idFirst;
     let selectedVacancy = getList.find( (element) => element.id == idFocus );
-    console.log(idFocus);
-    console.log(selectedVacancy);
     
     listV.forEach.call(listV, (item) => {
-      item.classList.toggle('active', item.id === idFocus)
+      item.classList.toggle('vacancy-active', item.getAttribute('data-vacancy-id') === idFocus)
     });
 
     head.innerHTML = selectedVacancy.vacancyName;
